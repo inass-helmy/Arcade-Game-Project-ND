@@ -54,7 +54,6 @@ class Player {
         this.x = 200;
         this.y = 430;
         this.moveDelta = 50;
-
     }
 
 
@@ -63,7 +62,7 @@ class Player {
     }
 
     render() {
- ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+ ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 100, 150);
 
     }
 
@@ -101,19 +100,23 @@ constructor() {
 this.sprite = 'images/Gem-Orange.png';
         this.x = col[Math.floor(Math.random() * 3)];
         this.y = random(100, 300);
+        this.collected = false;
 }
 
 render() {
 ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 50, 60);
 }
 update() {
-if (player.x < this.x + 50 &&
-   player.x + 50 > this.x &&
-   player.y < this.y + 60 &&
-   player.y + 60 > this.y){
-   ctx.clearRect(this.x,this.y, 50, 60);
+if (player.x < this.x + 40&&
+   player.x + 40 > this.x &&
+   player.y < this.y +20&&
+   player.y + 20 > this.y){
+    console.log("done");
+    this.collected = true;
+    gemsArray = gemsArray.filter(gem => this.collected = false);
 
 }
+
 }
 
 };
@@ -122,6 +125,7 @@ for (let i = 0; i < 3 ; i++) {
     gemsArray[i] = new Gems() ; 
 
 }
+
 
 //a class to handle lives calculations
 
@@ -138,7 +142,7 @@ class Lives {
     }
 
     update() {
-        
+
     life.splice((livesNumber-1),1);
     }
 };
@@ -224,3 +228,4 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+

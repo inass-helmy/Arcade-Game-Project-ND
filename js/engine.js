@@ -94,12 +94,18 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
+
         gemsArray.forEach(function(gem) {
             gem.update();
+              gemsArray = gemsArray.filter(gem => !this.collected);
+
         });
+
+        
         player.update();
 
     }
+
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -157,6 +163,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
+
         gemsArray.forEach(function(gem) {
             gem.render();
         });
