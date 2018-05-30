@@ -97,7 +97,6 @@ var Engine = (function(global) {
 
         gemsArray.forEach(function(gem) {
             gem.update();
-              gemsArray = gemsArray.filter(gem => !this.collected);
 
         });
 
@@ -172,7 +171,7 @@ var Engine = (function(global) {
         });
 
         player.render();
-        score.render();
+        scorePanel.render();
     }
 
     /* This function does nothing but it could have been a good place to

@@ -4,8 +4,11 @@ let gemsArray = [];
 let life = [];
 var time;
 let livesNumber = 3;
+let score = 0;
 let timer = document.querySelector(".timer");
-
+let collectedGems = 0;
+let displayX = [0, 30, 60];
+let displayY = [0,0,0];
 var rows = [ 60, 140, 220];
 var col = [30, 200, 400];
 class Enemy {
@@ -52,7 +55,7 @@ class Player {
         this.sprite = 'images/char-boy.png';
 
         this.x = 200;
-        this.y = 430;
+        this.y = 410;
         this.moveDelta = 50;
     }
 
@@ -105,16 +108,22 @@ this.sprite = 'images/Gem-Orange.png';
 
 render() {
 ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 50, 60);
+ for (let i = 0; i<collectedGems; i++){
+     ctx.drawImage(Resources.get(this.sprite), displayX[i]+350, displayY[i], 20, 30);
+ }
+
 }
 update() {
-if (player.x < this.x + 40&&
-   player.x + 40 > this.x &&
-   player.y < this.y +20&&
-   player.y + 20 > this.y){
-    console.log("done");
+if (player.x < this.x + 30 &&
+   player.x + 80 > this.x &&
+   player.y < this.y + 40 &&
+   player.y + 130 > this.y){
     this.collected = true;
-    gemsArray = gemsArray.filter(gem => this.collected = false);
-
+    collectedGems++;
+    scorePanel.update();
+    gemsArray = gemsArray.filter(gem => gem.collected == false);
+    console.log("player"+ player.x +" " +player.y);
+    console.log("gem" + this.x +" "+ this.y);
 }
 
 }
@@ -149,26 +158,29 @@ class Lives {
 
 class Score {
 
-    constructor(x,y) {
-        this.x = 150;
-        this.y = 0;
+    constructor() {
+        this.x = 200;
+        this.y = 28;
     }
 
     render() {
-        ctx.fillText('Score : ', this.x, this.y);
+        ctx.fillStyle = "red";
+        ctx.font = "20px Arial";
+        ctx.fillText('Score : '+ score, this.x, this.y);
     }
 
-    // update() {
-    // // ctx.clearRect(this.x,this.y, 30, 40);
-    // life.splice((livesNumber-1),1);
-    // }
+    update() {
+    score+=100;
+    }
+    
 };
-let score = new Score();
+let scorePanel = new Score();
 
 
+for(let i = 0; i<3;i++) {
 
-
-    life = [new Lives(0,0), new Lives(60,0), new Lives(120,0)]; 
+    life[i] = new Lives(displayX[i], displayY[i]); 
+}
 
 
 //this function generates random number in a specified range
@@ -201,13 +213,13 @@ livesNumber--;
 
 function setGame(){
     player.x = 200;
-    player.y = 430;
+    player.y = 410;
 }
 
-// Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 let player = new Player();
 
+// Place all enemy objects in an array called allEnemies
 for (let i = 0; i < 3; i++) {
 
     allEnemies[i] = new Enemy() ; 
