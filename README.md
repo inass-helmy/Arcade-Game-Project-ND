@@ -8,6 +8,7 @@
 
 ## 1. Description
 - This project is a part of Google/Udacity Front-end nanodegree projects.
+
 ![snippet](game-snippet.png)
 
 ## 2. Instructions
@@ -19,7 +20,7 @@
 - each collected Gem increase the score by 100 points and each time the player loses a life the score decreases by 50 points.
 
 ## 3. App page
-- https://inass-helmy.github.io/Arcade-Game-project-ND
+- https://inass-helmy.github.io/Arcade-Game-Project-ND/
 
 ## 4. Dependencies
 - Code is written in `HTML`, `CSS` and `JavaScript`.
