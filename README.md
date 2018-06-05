@@ -9,7 +9,7 @@
 ## 1. Description
 - This project is a part of Google/Udacity Front-end nanodegree projects.
 
-![snippet](game-snippet.png)
+![snippet](images/game-snippet.png)
 
 ## 2. Instructions
 - In this game you have a Player and Enemies (Bugs).
