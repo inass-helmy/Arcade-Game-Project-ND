@@ -17,6 +17,8 @@ let displayY = [0, 0, 0];
 //coordinates for the enemies
 var rows = [70, 150, 230];
 var col = [30, 200, 400];
+//variable to stop the game when game over
+let endOfGame = false;
 //query selecting the modals of the game (start and game over and winner)
 let startModal = document.querySelector(".start-game");
 let gameOver = document.querySelector(".game-over");
@@ -31,19 +33,19 @@ function startGame() {
 class Enemy {
     constructor() {
 
-    // Variables applied to each of our instances go here,
-    // The image/sprite for our enemies, this uses
+// Variables applied to each of our instances go here,
+// The image/sprite for our enemies, this uses
         this.sprite = 'images/enemy-bug.png';
         this.x = 0;
         this.y = rows[Math.floor(Math.random() * 3)];
         this.speed = random(300, 100);
 
     }
-    // Update the enemy's position
-    // Parameter: dt, a time delta between ticks
-    // multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
+// Update the enemy's position
+// Parameter: dt, a time delta between ticks
+// multiply any movement by the dt parameter
+// which will ensure the game runs at the same speed for
+// all computers.
     update(dt) {
 
         if (this.x >= 505) {
@@ -59,6 +61,7 @@ class Enemy {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 
     }
+    
 }
 
 // player class
@@ -74,11 +77,11 @@ class Player {
 
 
     update(dt) {
-
-        //this is to check if the player reach the water and win by collecting all Gems or not
-        if (this.y <= 10 && collectedGems == 3) {
+    if (this.y <= 10 && collectedGems == 3) {
             this.winGame();
-        }
+            document.removeEventListener('keyup', keyUpHandle);
+
+        }        
 
     }
 
@@ -87,7 +90,7 @@ class Player {
 
     }
 
-    //this functions handles the user input and prevent the player from getting out of the canva
+//this functions handles the user input and prevent the player from getting out of the canva
 
     handleInput(move) {
 
@@ -100,18 +103,65 @@ class Player {
 
         if (move == 'up' && this.y >= 30) {
             this.y -= this.moveDelta;
+
+//this is to check if the player reach the water and win by collecting all Gems or not
+           if (this.y <= 10 && collectedGems == 3) {
+            this.winGame();
+            document.removeEventListener('keyup', keyUpHandle);
+
         }
+        }
+
         if (move == 'down' && this.y <= 410) {
             this.y += this.moveDelta;
         }
 
     }
 
+    //this is a function to check the collisions between player and enemies
+
+    checkCollisions() {
+
+    allEnemies.forEach(function (enemy) {
+
+        if (player.x < enemy.x + 40 &&
+            player.x + 40 > enemy.x &&
+            player.y < enemy.y + 60 &&
+            player.y + 60 > enemy.y) {
+            player.setGame();
+            life.forEach(function (heart) {
+                heart.update();
+            });
+            livesNumber--;
+            if (score > 0) {
+                score -= 50;
+            }
+            if (livesNumber === 0) {
+                player.loseGame();
+                document.removeEventListener('keyup', keyUpHandle);
+
+            }
+
+        }
+    })
+}
+
     winGame() {
         winner.style.visibility = "visible";
         scoreDisplay.innerHTML = score;
+        endOfGame = true;
 
     }
+
+loseGame() {
+    gameOver.style.visibility = "visible";
+    endOfGame = true;
+}
+
+    setGame() {
+    player.x = 200;
+    player.y = 410;
+}
 
 };
 
@@ -176,6 +226,7 @@ class Lives {
     }
 };
 
+// a class to handle score calculations
 class Score {
 
     constructor() {
@@ -209,46 +260,12 @@ function random(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-//this is a function to check the collisions between player and enemies
-function checkCollisions() {
-
-    allEnemies.forEach(function (enemy) {
-
-        if (player.x < enemy.x + 40 &&
-            player.x + 40 > enemy.x &&
-            player.y < enemy.y + 60 &&
-            player.y + 60 > enemy.y) {
-            setGame();
-            life.forEach(function (heart) {
-                heart.update();
-            });
-            livesNumber--;
-            if (score > 0) {
-                score -= 50;
-            }
-            if (livesNumber === 0) {
-                loseGame();
-            }
-
-        }
-    })
-
-};
-
-function loseGame() {
-    gameOver.style.visibility = "visible";
-}
-
 function restart() {
     gameOver.style.visibility = "hidden";
     startModal.style.visibility = "hidden";
     window.location.reload(true);
 }
 
-function setGame() {
-    player.x = 200;
-    player.y = 410;
-}
 
 // Place the player object in a variable called player
 let player = new Player();
@@ -264,13 +281,16 @@ for (let i = 0; i < 3; i++) {
 // Player.handleInput() method. You don't need to modify this.
 
 
-document.addEventListener('keyup', function (e) {
-    var allowedKeys = {
+document.addEventListener('keyup', keyUpHandle);
+
+function keyUpHandle(e) {
+    const allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        27: 'escape'
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
-});
+}

@@ -17,6 +17,7 @@ var Engine = (function(global) {
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
+
     var doc = global.document,
         win = global.window,
         canvas = doc.createElement('canvas'),
@@ -37,6 +38,7 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
+
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
            
@@ -179,7 +181,6 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
     }
 
     /* Go ahead and load all of the images we know we're going to need to
