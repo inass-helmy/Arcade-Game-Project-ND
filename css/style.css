@@ -1,3 +1,91 @@
 body {
     text-align: center;
 }
+
+.start-game {
+    font-family: 'Alegreya', serif;
+    z-index: 1;
+    position: absolute;
+    background-color: #FEB72D;
+    border-radius: 5px; 
+    left: 0;
+    right: 0;
+    top: 10%;
+    width: 420px;
+    height: 410px;
+    margin: 0 auto;
+    padding: 1em 2em;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.start-game h1, h3, h4 {
+    font-weight: bold; 
+}
+
+.start-game h4 {
+    color: #E3170A;
+}
+
+.start-game button {
+    background-color: royalblue;
+    border: none;
+    border-radius: 3px;
+    padding: 7px 15px;
+    font-size: 20px;
+    color: #fff;
+}
+.game-over {
+	visibility: hidden;
+    font-family: 'Alegreya', serif;
+    position: absolute;
+    background-color: #B10C1A;
+    border-radius: 5px; 
+    left: 0;
+    right: 0;
+    top: 153px;
+    width: 347px;
+    height: 303px;
+    margin: 0 auto;
+    padding: 3em 3em;
+    color: #fff;
+    visibility: hidden;
+}
+.game-over button {
+    background-color: royalblue;
+    border: none;
+    border-radius: 3px;
+    padding: 7px 15px;
+    font-size: 20px;
+    color: #fff;
+    margin-top: 2em;
+}
+
+.winner {
+	visibility: hidden;
+    font-family: 'Alegreya', serif;
+    position: absolute;
+    background-color: #AF099B;
+    border-radius: 5px;
+    left: 0;
+    right: 0;
+    top: 153px;
+    width: 347px;
+    height: 200px;
+    margin: 0 auto;
+    padding: 3em 3em;
+    color: #fff;
+    visibility: hidden;
+}
+
+.winner button {
+    background-color: #2548C4;
+    border: none;
+    border-radius: 3px;
+    padding: 7px 15px;
+    font-size: 20px;
+    color: #fff;
+    margin-top: 2em;
+}
