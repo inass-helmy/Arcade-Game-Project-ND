@@ -12,6 +12,8 @@
 ![snippet](images/game-snippet.png)
 
 ## 2. Instructions
+- To use the game You should visit Game page: https://inass-helmy.github.io/Arcade-Game-Project-ND/
+- You could also run it _locally_ (on your machine) by downloading a zip format using this link https://github.com/inass-helmy/Arcade-Game-Project-ND.git. Then you will have to unzip it and open `index.html` file from your browser to start game.
 - In this game you have a Player and Enemies (Bugs).
 - The goal of the player is to reach the water and collect all Gems, without colliding into any one of the enemies.
 - The player can move left, right, up and down. The enemies move in varying speeds on the paved block portion of the scene.
